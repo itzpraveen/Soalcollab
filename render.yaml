@@ -55,11 +55,10 @@ services:
       - key: SECRET_KEY
         generateValue: true
 
+  - type: redis
+    name: studiohub-redis
+
 databases:
   - name: studiohub-db
     databaseName: studiohub
     user: studiohub
-
-services:
-  - type: redis
-    name: studiohub-redis
