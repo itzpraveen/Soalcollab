@@ -123,9 +123,11 @@ body {
     min-height: 150px;
 }
 
-.task {
+.task-card {
     background-color: #fff;
     border-radius: 6px;
+    padding: 1.2rem;
+    margin-bottom: 1rem;
     padding: 1.2rem;
     margin-bottom: 1rem;
     cursor: move;
@@ -134,24 +136,24 @@ body {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.task:hover {
+.task-card:hover {
     transform: translateY(-3px);
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-.task h4 {
+.task-card h4 {
     margin: 0 0 0.5rem 0;
     font-size: 1.1rem;
     font-weight: 600;
 }
 
-.task p {
+.task-card p {
     margin: 0.25rem 0;
     font-size: 0.9rem;
     color: var(--text-color-light);
 }
 
-.task .task-meta {
+.task-card .task-meta {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -159,20 +161,25 @@ body {
     font-size: 0.85rem;
 }
 
-.task .task-due-date {
-    color: var(--text-color-light);
+.task-card .task-due-date {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-color); /* Ensuring due date is visible */
 }
 
-.task.status-inbox { border-left-color: #6c757d; }
-.task.status-brief_ready { border-left-color: #17a2b8; }
-.task.status-in_design { border-left-color: #ffc107; }
-.task.status-review { border-left-color: #fd7e14; }
-.task.status-sent { border-left-color: #28a745; }
-.task.status-done { border-left-color: #20c997; }
+.task-card.green {
+    background-color: #d4edda;
+    color: #155724;
+}
 
-.task.is-overdue .task-due-date {
-    color: #e74c3c;
-    font-weight: 600;
+.task-card.yellow {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.task-card.red {
+    background-color: #f8d7da;
+    color: #721c24;
 }
 
 .task-link {
@@ -356,7 +363,6 @@ body {
 .task-attachments a:hover {
     color: #357abd;
 }
-
 
 @media (max-width: 768px) {
     .dashboard {

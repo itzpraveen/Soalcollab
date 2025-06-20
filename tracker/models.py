@@ -38,6 +38,19 @@ class Task(models.Model):
     def is_due_today(self):
         return self.client_due and self.client_due == timezone.now().date() and not self.completed_at
 
+    @property
+    def card_color(self):
+        today = timezone.now().date()
+        if self.status == self.Status.DONE:
+            return 'green'
+        if self.client_due and self.client_due < today:
+            return 'red'
+        if self.client_due and self.client_due == today:
+            return 'red'
+        if self.internal_due and self.internal_due <= today:
+            return 'yellow'
+        return 'green'
+
 class Attachment(models.Model):
     file = models.FileField(upload_to='attachments/')
     task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='attachments')

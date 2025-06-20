@@ -44,7 +44,7 @@
                     <div class="task-list" data-status="{{ status }}">
                         {% for task in tasks %}
                             <a href="{% url 'task_detail' task.id %}" class="task-link">
-                                <div class="task status-{{ task.status }} {% if task.is_overdue %}is-overdue{% endif %}" draggable="true" data-id="{{ task.id }}">
+                                <div class="task-card {{ task.card_color }}" draggable="true" data-id="{{ task.id }}">
                                     <h4>{{ task.title }}</h4>
                                     <p><i class="fas fa-user"></i> {{ task.client.name }}</p>
                                     <div class="task-meta">
