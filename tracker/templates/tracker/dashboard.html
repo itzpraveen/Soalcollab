@@ -35,36 +35,13 @@
         {% endif %}
 
         <div id="dashboard-container">
-            <form id="update-tasks-form" hx-post="{% url 'update_task_status' %}" hx-target="#dashboard-container" hx-swap="outerHTML">
+            <form id="update-tasks-form" hx-post="{% url 'update_task_status' %}" hx-target=".dashboard" hx-swap="innerHTML">
                 {% csrf_token %}
                 <input type="hidden" name="task_updates" id="task-updates-input">
                 <button type="submit" class="btn btn-primary" style="margin-bottom: 1rem;">Save Changes</button>
             </form>
             <div class="dashboard">
-                {% for status, tasks in status_columns.items %}
-                    <div class="status-column" data-status="{{ status }}">
-                        <h2>
-                        {{ status|title }}
-                        <span class="task-count">{{ tasks|length }}</span>
-                    </h2>
-                    <div class="task-list" data-status="{{ status }}">
-                        {% for task in tasks %}
-                            <a href="{% url 'task_detail' task.id %}" class="task-link">
-                                <div class="task-card {{ task.card_color }}" draggable="true" data-id="{{ task.id }}">
-                                    <h4>{{ task.title }}</h4>
-                                    <p><i class="fas fa-user"></i> {{ task.client.name }}</p>
-                                    <div class="task-meta">
-                                        <span class="task-due-date">
-                                            <i class="fas fa-calendar-alt"></i>
-                                            Due: {{ task.client_due|date:"M d"|default:"N/A" }}
-                                        </span>
-                                    </div>
-                                </div>
-                            </a>
-                        {% endfor %}
-                    </div>
-                </div>
-            {% endfor %}
+                {% include 'tracker/task_list_partial.html' %}
             </div>
         </div>
     </div>
