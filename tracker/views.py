@@ -30,7 +30,12 @@ def update_task_status(request):
         task.status = new_status
         task.save()
         
-        return HttpResponse(status=200)
+        # Re-render the dashboard component
+        status_columns = {}
+        for status in Task.Status.choices:
+            status_columns[status[0]] = Task.objects.filter(status=status[0])
+        
+        return render(request, 'tracker/dashboard.html', {'status_columns': status_columns})
     return HttpResponse(status=400)
 
 def create_task(request):

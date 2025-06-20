@@ -34,10 +34,11 @@
             </div>
         {% endif %}
 
-        <div class="dashboard">
-            {% for status, tasks in status_columns.items %}
-                <div class="status-column" data-status="{{ status }}">
-                    <h2>
+        <div id="dashboard-container">
+            <div class="dashboard">
+                {% for status, tasks in status_columns.items %}
+                    <div class="status-column" data-status="{{ status }}">
+                        <h2>
                         {{ status|title }}
                         <span class="task-count">{{ tasks|length }}</span>
                     </h2>
@@ -59,6 +60,7 @@
                     </div>
                 </div>
             {% endfor %}
+            </div>
         </div>
     </div>
 
@@ -75,12 +77,13 @@
                         const taskId = task.dataset.id;
 
                         htmx.ajax('POST', '{% url "update_task_status" %}', {
+                            headers: {'X-CSRFToken': '{{ csrf_token }}'},
                             values: {
                                 task_id: taskId,
-                                new_status: newStatus,
-                                csrfmiddlewaretoken: '{{ csrf_token }}'
+                                new_status: newStatus
                             },
-                            target: htmx.closest(task, '.dashboard')
+                            target: '#dashboard-container',
+                            swap: 'outerHTML'
                         });
                     }
                 });
