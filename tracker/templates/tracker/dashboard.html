@@ -35,7 +35,7 @@
         {% endif %}
 
         <div id="dashboard-container">
-            <form id="update-tasks-form" hx-post="{% url 'update_task_status' %}" hx-target=".dashboard" hx-swap="innerHTML">
+            <form id="update-tasks-form" hx-post="/update_task_status/" hx-target=".dashboard" hx-swap="innerHTML">
                 {% csrf_token %}
                 <input type="hidden" name="task_updates" id="task-updates-input">
                 <button type="submit" class="btn btn-primary" style="margin-bottom: 1rem;">Save Changes</button>
