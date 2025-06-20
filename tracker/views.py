@@ -26,6 +26,10 @@ def update_task_status(request):
         task_id = request.POST.get('task_id')
         new_status = request.POST.get('new_status')
         
+        # Prevent moving tasks to 'Inbox'
+        if new_status == Task.Status.INBOX:
+            return HttpResponse(status=400)
+            
         task = get_object_or_404(Task, id=task_id)
         task.status = new_status
         task.save()
