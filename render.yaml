@@ -57,6 +57,9 @@ services:
 
   - type: redis
     name: studiohub-redis
+    ipAllowList:
+      - source: 0.0.0.0/0
+        description: "Allow all traffic"
 
 databases:
   - name: studiohub-db
