@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm Delete</title>
+    <link rel="stylesheet" href="{% static 'tracker/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="{% url 'dashboard' %}" class="navbar-brand">StudioHub</a>
+    </nav>
+
+    <div class="container">
+        <div class="form-container">
+            <h2>Confirm Delete</h2>
+            <p>Are you sure you want to delete the task "{{ object.title }}"?</p>
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-buttons">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <a href="{% url 'task_detail' object.id %}" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

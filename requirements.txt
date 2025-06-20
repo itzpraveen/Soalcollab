@@ -1,0 +1,9 @@
+Django==5.2
+psycopg2-binary
+celery
+redis
+django-environ
+openpyxl
+dj-database-url
+gunicorn
+whitenoise

@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Task</title>
+    <link rel="stylesheet" href="{% static 'tracker/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="{% url 'dashboard' %}" class="navbar-brand">StudioHub</a>
+    </nav>
+
+    <div class="container">
+        <div class="form-container">
+            <h2>Create New Task</h2>
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ form.title.label_tag }}
+                    {{ form.title }}
+                </div>
+                <div class="form-group">
+                    {{ form.description.label_tag }}
+                    {{ form.description }}
+                </div>
+                <div class="form-group">
+                    {{ form.client.label_tag }}
+                    {{ form.client }}
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        {{ form.internal_due.label_tag }}
+                        {{ form.internal_due }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.client_due.label_tag }}
+                        {{ form.client_due }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form.status.label_tag }}
+                    {{ form.status }}
+                </div>
+                <div class="form-buttons">
+                    <button type="submit" class="btn btn-primary">Save Task</button>
+                    <a href="{% url 'dashboard' %}" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

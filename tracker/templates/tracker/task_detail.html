@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ task.title }}</title>
+    <link rel="stylesheet" href="{% static 'tracker/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="{% url 'dashboard' %}" class="navbar-brand">StudioHub</a>
+        <a href="{% url 'create_task' %}" class="btn btn-primary">
+            <i class="fas fa-plus"></i> New Task
+        </a>
+    </nav>
+
+    <div class="container">
+        <div class="task-detail-container">
+            <div class="task-header">
+                <h2>{{ task.title }}</h2>
+                <div class="task-actions">
+                    <a href="{% url 'update_task' task.id %}" class="btn btn-secondary">
+                        <i class="fas fa-edit"></i> Edit
+                    </a>
+                    <a href="{% url 'delete_task' task.id %}" class="btn btn-danger">
+                        <i class="fas fa-trash"></i> Delete
+                    </a>
+                </div>
+            </div>
+
+            <div class="task-body">
+                <p><strong>Status:</strong> <span class="status-badge status-{{ task.status }}">{{ task.get_status_display }}</span></p>
+                <p><strong>Client:</strong> {{ task.client.name }}</p>
+                <p><strong>Internal Due:</strong> {{ task.internal_due|date:"M d, Y"|default:"N/A" }}</p>
+                <p><strong>Client Due:</strong> {{ task.client_due|date:"M d, Y"|default:"N/A" }}</p>
+                
+                <div class="task-description">
+                    <h4>Description</h4>
+                    <p>{{ task.description|linebreaksbr|default:"No description provided." }}</p>
+                </div>
+
+                <div class="task-attachments">
+                    <h4>Attachments</h4>
+                    {% if task.attachments.all %}
+                        <ul>
+                            {% for attachment in task.attachments.all %}
+                                <li><a href="{{ attachment.file.url }}">{{ attachment.file.name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>No attachments.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
