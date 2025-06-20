@@ -35,6 +35,11 @@
         {% endif %}
 
         <div id="dashboard-container">
+            <form id="update-tasks-form" hx-post="{% url 'update_task_status' %}" hx-target="#dashboard-container" hx-swap="outerHTML">
+                {% csrf_token %}
+                <input type="hidden" name="task_updates" id="task-updates-input">
+                <button type="submit" class="btn btn-primary" style="margin-bottom: 1rem;">Save Changes</button>
+            </form>
             <div class="dashboard">
                 {% for status, tasks in status_columns.items %}
                     <div class="status-column" data-status="{{ status }}">
@@ -66,6 +71,8 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', (event) => {
+            let taskUpdates = {};
+
             const taskLists = document.querySelectorAll('.task-list');
             taskLists.forEach(taskList => {
                 new Sortable(taskList, {
@@ -75,16 +82,8 @@
                         const task = evt.item;
                         const newStatus = evt.to.dataset.status;
                         const taskId = task.dataset.id;
-
-                        htmx.ajax('POST', '{% url "update_task_status" %}', {
-                            headers: {'X-CSRFToken': '{{ csrf_token }}'},
-                            values: {
-                                task_id: taskId,
-                                new_status: newStatus
-                            },
-                            target: '#dashboard-container',
-                            swap: 'outerHTML'
-                        });
+                        taskUpdates[taskId] = newStatus;
+                        document.getElementById('task-updates-input').value = JSON.stringify(taskUpdates);
                     }
                 });
             });

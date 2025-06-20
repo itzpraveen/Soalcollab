@@ -21,19 +21,21 @@ class DashboardView(ListView):
         context['status_columns'] = status_columns
         return context
 
+import json
+
 def update_task_status(request):
     if request.method == 'POST':
-        task_id = request.POST.get('task_id')
-        new_status = request.POST.get('new_status')
+        task_updates = json.loads(request.POST.get('task_updates', '{}'))
         
-        # Prevent moving tasks to 'Inbox'
-        if new_status == Task.Status.INBOX:
-            return HttpResponse(status=400)
+        for task_id, new_status in task_updates.items():
+            # Prevent moving tasks to 'Inbox'
+            if new_status == Task.Status.INBOX:
+                continue
+
+            task = get_object_or_404(Task, id=task_id)
+            task.status = new_status
+            task.save()
             
-        task = get_object_or_404(Task, id=task_id)
-        task.status = new_status
-        task.save()
-        
         # Re-render the dashboard component
         status_columns = {}
         for status in Task.Status.choices:
