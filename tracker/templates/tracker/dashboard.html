@@ -68,7 +68,7 @@
                         onEnd: function (evt) {
                             const task = evt.item;
                             const newStatus = evt.to.dataset.status;
-                            const taskId = task.dataset.id;
+                            const taskId = parseInt(task.dataset.id);
                             taskUpdates[taskId] = newStatus;
                             document.getElementById('task-updates-input').value = JSON.stringify(taskUpdates);
                         }
