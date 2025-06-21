@@ -56,24 +56,26 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
-            let taskUpdates = {};
+        setTimeout(() => {
+            document.addEventListener('DOMContentLoaded', (event) => {
+                let taskUpdates = {};
 
-            const taskLists = document.querySelectorAll('.task-list');
-            taskLists.forEach(taskList => {
-                new Sortable(taskList, {
-                    group: 'tasks',
-                    animation: 150,
-                    onEnd: function (evt) {
-                        const task = evt.item;
-                        const newStatus = evt.to.dataset.status;
-                        const taskId = task.dataset.id;
-                        taskUpdates[taskId] = newStatus;
-                        document.getElementById('task-updates-input').value = JSON.stringify(taskUpdates);
-                    }
+                const taskLists = document.querySelectorAll('.task-list');
+                taskLists.forEach(taskList => {
+                    new Sortable(taskList, {
+                        group: 'tasks',
+                        animation: 150,
+                        onEnd: function (evt) {
+                            const task = evt.item;
+                            const newStatus = evt.to.dataset.status;
+                            const taskId = task.dataset.id;
+                            taskUpdates[taskId] = newStatus;
+                            document.getElementById('task-updates-input').value = JSON.stringify(taskUpdates);
+                        }
+                    });
                 });
             });
-        });
+        }, 500);
     </script>
 
 </body>
