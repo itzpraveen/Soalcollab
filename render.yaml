@@ -20,10 +20,9 @@ services:
       - key: SECRET_KEY
         generateValue: true
       - key: CELERY_BROKER_URL
-        fromService:
-          type: redis
-          name: studiohub-redis
-          property: connectionString
+        value: redis://studiohub-redis:6379/0
+      - key: CELERY_RESULT_BACKEND
+        value: redis://studiohub-redis:6379/0
       - key: WEB_CONCURRENCY
         value: 8
       - key: PIP_INDEX_URL
@@ -47,10 +46,9 @@ services:
       - key: SECRET_KEY
         generateValue: true
       - key: CELERY_BROKER_URL
-        fromService:
-          type: redis
-          name: studiohub-redis
-          property: connectionString
+        value: redis://studiohub-redis:6379/0
+      - key: CELERY_RESULT_BACKEND
+        value: redis://studiohub-redis:6379/0
 
   - type: worker
     name: studiohub-beat
@@ -70,10 +68,9 @@ services:
       - key: SECRET_KEY
         generateValue: true
       - key: CELERY_BROKER_URL
-        fromService:
-          type: redis
-          name: studiohub-redis
-          property: connectionString
+        value: redis://studiohub-redis:6379/0
+      - key: CELERY_RESULT_BACKEND
+        value: redis://studiohub-redis:6379/0
 
   - type: redis
     name: studiohub-redis
