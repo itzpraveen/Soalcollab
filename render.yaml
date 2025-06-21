@@ -26,7 +26,7 @@ services:
       - key: WEB_CONCURRENCY
         value: 8
       - key: PIP_INDEX_URL
-        value: https://pypi.google.com/simple
+        value: https://pypi.org/simple
 
   - type: worker
     name: studiohub-worker
