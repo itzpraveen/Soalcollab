@@ -1,7 +1,9 @@
 from django.urls import path
 from . import views
+from django.shortcuts import redirect
 
 urlpatterns = [
+    path('', lambda request: redirect('dashboard'), name='root'),
     path('dashboard/', views.DashboardView.as_view(), name='dashboard'),
     path('task/<int:pk>/', views.TaskDetailView.as_view(), name='task_detail'),
     path('task/new/', views.create_task, name='create_task'),
