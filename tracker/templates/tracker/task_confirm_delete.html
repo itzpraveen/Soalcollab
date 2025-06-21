@@ -20,8 +20,12 @@
             <form method="post">
                 {% csrf_token %}
                 <div class="form-buttons">
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                    <a href="{% url 'task_detail' object.id %}" class="btn btn-secondary">Cancel</a>
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash"></i> Delete
+                    </button>
+                    <a href="{% url 'task_detail' object.id %}" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Cancel
+                    </a>
                 </div>
             </form>
         </div>

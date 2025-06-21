@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <base href="/">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StudioHub Dashboard</title>
@@ -13,7 +14,7 @@
 <body>
     <nav class="navbar">
         <a href="{% url 'dashboard' %}" class="navbar-brand">StudioHub</a>
-        <div>
+        <div class="navbar-actions">
             <a href="{% url 'create_client' %}" class="btn btn-secondary">
                 <i class="fas fa-user-plus"></i> New Client
             </a>
@@ -24,6 +25,19 @@
     </nav>
 
     <div class="container">
+        <header class="dashboard-header">
+            <h1>Project Tracker</h1>
+            <div class="dashboard-actions">
+                <form id="update-tasks-form" hx-post="/update_task_status/" hx-target=".dashboard" hx-swap="innerHTML">
+                    {% csrf_token %}
+                    <input type="hidden" name="task_updates" id="task-updates-input">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Save Changes
+                    </button>
+                </form>
+            </div>
+        </header>
+
         {% if messages %}
             <div class="messages">
                 {% for message in messages %}
@@ -34,16 +48,11 @@
             </div>
         {% endif %}
 
-        <div id="dashboard-container">
-            <form id="update-tasks-form" hx-post="/update_task_status/" hx-target=".dashboard" hx-swap="innerHTML">
-                {% csrf_token %}
-                <input type="hidden" name="task_updates" id="task-updates-input">
-                <button type="submit" class="btn btn-primary" style="margin-bottom: 1rem;">Save Changes</button>
-            </form>
+        <main id="dashboard-container">
             <div class="dashboard">
                 {% include 'tracker/task_list_partial.html' %}
             </div>
-        </div>
+        </main>
     </div>
 
     <script>

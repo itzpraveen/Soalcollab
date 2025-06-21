@@ -11,9 +11,14 @@
 <body>
     <nav class="navbar">
         <a href="{% url 'dashboard' %}" class="navbar-brand">StudioHub</a>
-        <a href="{% url 'create_task' %}" class="btn btn-primary">
-            <i class="fas fa-plus"></i> New Task
-        </a>
+        <div>
+            <a href="{% url 'dashboard' %}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Back to Dashboard
+            </a>
+            <a href="{% url 'create_task' %}" class="btn btn-primary">
+                <i class="fas fa-plus"></i> New Task
+            </a>
+        </div>
     </nav>
 
     <div class="container">
