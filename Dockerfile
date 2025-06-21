@@ -36,7 +36,7 @@ COPY --from=builder /app/tracker /app/tracker
 COPY --from=builder /app/requirements.txt /app/requirements.txt
 
 # Install production dependencies
-RUN pip install --no-cache-dir --only-binary -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Expose port 8000
 EXPOSE 8000
