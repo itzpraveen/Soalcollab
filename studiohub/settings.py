@@ -140,8 +140,8 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Celery Configuration
-CELERY_BROKER_URL = env('CELERY_BROKER_URL')
-CELERY_RESULT_BACKEND = env('CELERY_RESULT_BACKEND')
+CELERY_BROKER_URL = env('CELERY_BROKER_URL', default='memory://')
+CELERY_RESULT_BACKEND = env('CELERY_RESULT_BACKEND', default='cache+memory://')
 
 # Security settings for production
 if not DEBUG:
