@@ -17,7 +17,13 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-2. Copy `.env.example` to `.env` and update the values.
+2. Copy `.env.example` to `.env` and update the values. At minimum set `SECRET_KEY`
+   to a random string. You can generate one with:
+
+```bash
+python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
+```
+
 3. Run migrations and start the development server
 
 ```bash
@@ -48,10 +54,10 @@ The `render.yaml` blueprint allows you to deploy StudioHub with a single click.
 
 
 ## Troubleshooting
-If you encounter a 500 error when accessing the dashboard, make sure the database migrations have run:
+If you encounter a 500 error when accessing the dashboard, ensure the database migrations have run and that the `SECRET_KEY` environment variable is set:
 
 ```bash
 python manage.py migrate
 ```
 
-The application requires a valid database schema to display the dashboard correctly.
+The application requires a valid database schema and secret key to display the dashboard correctly.
