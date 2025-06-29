@@ -83,3 +83,7 @@ class TaskDeleteView(SuccessMessageMixin, DeleteView):
     template_name = 'tracker/task_confirm_delete.html'
     success_url = reverse_lazy('dashboard')
     success_message = "Task deleted successfully."
+
+def health_check(request):
+    """Returns a simple 200 OK response for health checks."""
+    return HttpResponse("OK", status=200)
