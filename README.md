@@ -1,0 +1,48 @@
+# StudioHub
+
+StudioHub is a lightweight task tracker built with Django. It provides a Kanban-style dashboard for managing client projects.
+
+## Features
+- Create clients and tasks
+- Drag and drop tasks between statuses
+- Automatic tracking of completion dates
+- Docker ready and deployable to Render.com
+
+## Quick start
+1. Create a virtual environment and install dependencies
+
+```bash
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+2. Copy `.env.example` to `.env` and update the values.
+3. Run migrations and start the development server
+
+```bash
+python manage.py migrate
+python manage.py runserver
+```
+
+Visit `http://localhost:8000` to access the dashboard.
+
+## Running tests
+Execute the Django test suite with:
+
+```bash
+python manage.py test
+```
+
+## Docker
+A `Dockerfile` and `docker-compose.yml` are provided for containerized development.
+
+## Deploying to Render
+
+The `render.yaml` blueprint allows you to deploy StudioHub with a single click.
+
+1. Sign in to [Render](https://render.com) and choose **New \> Blueprint**.
+2. Enter the repository URL and confirm the services to create.
+3. Render will provision a PostgreSQL database, Redis, a web service, and Celery workers.
+4. Once the build finishes, open the web service URL to access your hosted instance.
+
