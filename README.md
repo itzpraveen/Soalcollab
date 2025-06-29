@@ -46,3 +46,12 @@ The `render.yaml` blueprint allows you to deploy StudioHub with a single click.
 3. Render will provision a PostgreSQL database, Redis, a web service, and Celery workers.
 4. Once the build finishes, open the web service URL to access your hosted instance.
 
+
+## Troubleshooting
+If you encounter a 500 error when accessing the dashboard, make sure the database migrations have run:
+
+```bash
+python manage.py migrate
+```
+
+The application requires a valid database schema to display the dashboard correctly.
