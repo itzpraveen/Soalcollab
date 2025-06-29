@@ -1,7 +1,11 @@
+"""Database models for the tracker application."""
+
 from django.db import models
 from django.utils import timezone
 
 class Client(models.Model):
+    """Represents a client for whom tasks are performed."""
+
     name = models.CharField(max_length=255)
     email = models.EmailField(unique=True)
 
@@ -30,6 +34,16 @@ class Task(models.Model):
     def __str__(self):
         return self.title
 
+    def save(self, *args, **kwargs):
+        """Override save to manage ``completed_at`` automatically."""
+        if self.status == self.Status.DONE:
+            if not self.completed_at:
+                self.completed_at = timezone.now()
+        else:
+            # Reset the completion timestamp if status is changed
+            self.completed_at = None
+        super().save(*args, **kwargs)
+
     @property
     def is_overdue(self):
         return self.client_due and self.client_due < timezone.now().date() and not self.completed_at
@@ -52,6 +66,8 @@ class Task(models.Model):
         return 'green'
 
 class Attachment(models.Model):
+    """File attachment for a task."""
+
     file = models.FileField(upload_to='attachments/')
     task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='attachments')
 
