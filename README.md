@@ -18,7 +18,9 @@ pip install -r requirements.txt
 ```
 
 2. Copy `.env.example` to `.env` and update the values. At minimum set `SECRET_KEY`
-   to a random string. You can generate one with:
+   to a random string. If omitted, a random key will be generated automatically
+   for development, but you should provide your own in production. You can
+   generate one with:
 
 ```bash
 python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
@@ -61,3 +63,4 @@ python manage.py migrate
 ```
 
 The application requires a valid database schema and secret key to display the dashboard correctly.
+
